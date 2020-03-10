@@ -36,6 +36,9 @@ class CartCreation: Event {
             }
             return super.data
         }
+        set {
+            _data = newValue
+        }
     }
     
     init() {
@@ -67,6 +70,9 @@ class ProductPurchased: Event {
             }
             return super.data
         }
+        set {
+            _data = newValue
+        }
     }
     
     init() {
@@ -91,6 +97,9 @@ class ProductAwaitingPayment: Event {
                 _data["cart"] = cart.properties
             }
             return super.data
+        }
+        set {
+            _data = newValue
         }
     }
     

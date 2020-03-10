@@ -1,14 +1,17 @@
 /*
  This SDK is licensed under the MIT license (MIT)
  Copyright (c) 2015- Applied Technologies Internet SAS (registration number B 403 261 258 - Trade and Companies Register of Bordeaux – France)
+ 
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
  in the Software without restriction, including without limitation the rights
  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  copies of the Software, and to permit persons to whom the Software is
  furnished to do so, subject to the following conditions:
+ 
  The above copyright notice and this permission notice shall be included in all
  copies or substantial portions of the Software.
+ 
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -18,60 +21,35 @@
  SOFTWARE.
  */
 
+
+
+
+
 //
-//  DisplayPageProduct.swift
+//  AVInsights.swift
 //  Tracker
 //
 import Foundation
 
-/// Wrapper class for DisplayPageProduct event tracking (SalesInsight)
-public class DisplayProduct: Event {
+public class AVInsights: NSObject {
+    private var events : Events
     
-    /// List property
-    @objc public lazy var products : [ECommerceProduct] = [ECommerceProduct]()
+    init(tracker: Tracker) {
+        self.events = tracker.events
+    }
     
-    override var data: [String : Any] {
+    @objc public var media : AVMedia {
         get {
-            return _data
-        }
-        set {
-            _data = newValue
+            return AVMedia(events: self.events)
         }
     }
     
-    init() {
-        super.init(name: "product.display")
+    @objc public func Media(heartbeat: Int, bufferHeartbeat: Int) -> AVMedia {
+        return AVMedia(events: self.events, heartbeat: heartbeat, bufferHeartbeat: bufferHeartbeat)
     }
     
-    @objc public func setProducts(products: [ECommerceProduct]) {
-        self.products = products
-    }
-    
-    override func getAdditionalEvents() -> [Event] {
-        var generatedEvents = super.getAdditionalEvents()
-        
-        for p in products {
-            /// SALES INSIGHTS
-            let dp = DisplayProduct()
-            if !p.properties.isEmpty {
-                dp._data["product"] = p.properties
-            }
-            generatedEvents.append(dp)
-        }
-        
-        return generatedEvents
-    }
-}
-
-/// Wrapper class to manage DisplayProducts event instances
-public class DisplayProducts : EventsHelper {
-    
-    /// Add display products event tracking
-    ///
-    /// - Returns: DisplayProduct instance
-    @objc public func add() -> DisplayProduct {
-        let dp = DisplayProduct()
-        _ = events.add(event: dp)
-        return dp
+    @objc(MediaWithDynamicValues::)
+    public func Media(heartbeat: [Int:Int], bufferHeartbeat: [Int:Int]) -> AVMedia {
+        return AVMedia(events: self.events, heartbeat: heartbeat, bufferHeartbeat: bufferHeartbeat)
     }
 }

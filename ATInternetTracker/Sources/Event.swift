@@ -39,6 +39,9 @@ public class Event: NSObject {
         get {
             return self._data
         }
+        set {
+            self._data = newValue
+        }
     }
     
     @objc public var name: String

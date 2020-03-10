@@ -235,6 +235,18 @@
             "type": "bool",
             "isPublic": true,
             "isGlobal": true
+        },
+        {
+          "_id": "maxHitSize",
+          "name": "maxHitSize",
+          "pluginId": "core",
+          "category": "advanced",
+          "label": "Geode_Tag_Js_Config_Title_maxHitSize",
+          "description": "Geode_Tag_Js_Config_Description_maxHitSize",
+          "defaultValue": "10000",
+          "type": "int",
+          "isPublic": true,
+          "isGlobal": true
         }
     ]
 }

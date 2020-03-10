@@ -43,6 +43,9 @@ public class DeliveryCheckout: Event {
             }
             return super.data
         }
+        set {
+            _data = newValue
+        }
     }
     
     init() {

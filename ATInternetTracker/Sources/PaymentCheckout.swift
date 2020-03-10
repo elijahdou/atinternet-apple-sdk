@@ -43,6 +43,9 @@ public class PaymentCheckout: Event {
             }
             return super.data
         }
+        set {
+            _data = newValue
+        }
     }
     
     init() {

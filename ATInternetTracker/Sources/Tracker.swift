@@ -288,6 +288,10 @@ public class Tracker: NSObject {
     /// Return ECommerce instance
     @objc fileprivate(set) public lazy var ecommerce: ECommerce = ECommerce(tracker: self)
     
+    //MARK: AVInsights Tracking
+    /// Return AVInsights instance
+    @objc fileprivate(set) public lazy var avInsights: AVInsights = AVInsights(tracker: self)
+    
     //MARK: Events Tracking
     /// Return Events instance
     @objc fileprivate(set) public lazy var events: Events = Events(tracker: self)
@@ -738,6 +742,18 @@ public class Tracker: NSObject {
     ///   - completionHandler: called when the operation has been done
     @objc public func setSessionBackgroundDuration(_ duration: Int, sync: Bool = false, completionHandler: ((_ isSet: Bool) -> Void)?) {
         setConfig(TrackerConfigurationKeys.SessionBackgroundDuration, value: String(duration), sync: sync, completionHandler: completionHandler)
+    }
+    
+    /// Set a new Max Hit Size
+    ///
+    /// - Parameters:
+    ///   - maxHitSize: new max hit size
+    @objc public func setSessionBackgroundDuration(_ maxHitSize: Int) {
+        if maxHitSize < 1_600 {
+            self.configuration.parameters[TrackerConfigurationKeys.MaxHitSize] = String(1_600)
+        } else {
+            self.configuration.parameters[TrackerConfigurationKeys.MaxHitSize] = String(maxHitSize)
+        }
     }
     
     // MARK: - Parameter

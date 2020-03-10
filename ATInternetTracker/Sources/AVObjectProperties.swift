@@ -19,49 +19,39 @@
  */
 
 //
-//  RemoveProduct.swift
+//  AVInsightsObjectProperties.swift
 //  Tracker
 //
+
 import Foundation
 
-/// Wrapper class for RemoveProduct event tracking (SalesInsight)
-public class RemoveProduct: Event {
+public class Content: RequiredPropertiesDataObject {
     
-    /// Product property
-    @objc public lazy var product : ECommerceProduct = ECommerceProduct()
-    
-    /// Cart property
-    @objc public lazy var cart : ECommerceCart = ECommerceCart()
-    
-    override var data: [String : Any] {
-        get {
-            if !product.properties.isEmpty {
-                _data["product"] = product.properties
-            }
-            if !cart.properties.isEmpty {
-                _data["cart"] = cart.properties
-            }
-            return super.data
-        }
-        set {
-            _data = newValue
-        }
-    }
-    
-    init() {
-        super.init(name: "product.remove_from_cart")
+    override init() {
+        super.init()
+        /// STRING
+        propertiesPrefixMap["$"] = "s"
+        propertiesPrefixMap["id"] = "s"
+        propertiesPrefixMap["type"] = "s"
+        propertiesPrefixMap["version"] = "s"
+        propertiesPrefixMap["linked"] = "s"
+
+        /// LONG
+        propertiesPrefixMap["duration"] = "n"
+        propertiesPrefixMap["duration_range"] = "n"
+
+        /// ARRAY STRING
+        propertiesPrefixMap["genre"] = "a:s"
     }
 }
 
-/// Wrapper class to manage RemoveProduct event instances
-public class RemoveProducts : EventsHelper {
+public class Player: RequiredPropertiesDataObject {
     
-    /// Add remove product event tracking
-    ///
-    /// - Returns: RemoveProduct instance
-    @objc public func add() -> RemoveProduct {
-        let rp = RemoveProduct()
-        _ = events.add(event: rp)
-        return rp
+    override init() {
+        super.init()
+        /// STRING
+        propertiesPrefixMap["$"] = "s"
+        propertiesPrefixMap["version"] = "s"
+        propertiesPrefixMap["position"] = "s"
     }
 }

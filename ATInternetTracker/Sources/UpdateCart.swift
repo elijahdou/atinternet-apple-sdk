@@ -37,6 +37,9 @@ public class UpdateCart: Event {
             }
             return super.data
         }
+        set {
+            _data = newValue
+        }
     }
     
     init() {
